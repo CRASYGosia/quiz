@@ -1,0 +1,32 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <p>Star Wars</p>
+    <p>Licznik czasu: <span id="counter"></span></p>
+    <button onclick="myFunction()">Try it</button>
+    
+    <script>
+    var counter = 0;
+var setCounter = 10;
+   var interval =  setInterval(() => {
+        counter++;
+        document.getElementById("counter").innerHTML = counter;
+        if (counter >= setCounter) {
+    clearInterval(interval);
+}
+    }, 
+    1000);  
+
+
+
+
+    </script>
+    
+
+</body>
+</html>

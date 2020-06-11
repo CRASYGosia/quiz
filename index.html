@@ -1,0 +1,102 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>ZadanieDomowe</title>
+</head>
+<body>
+    <div class="SS">
+        <h1>QUIZ</h1> <br> <br> 
+        <h2 id="RAB"> </h2> 
+       <ol id="SOB"> </ol>
+    <div id="Podsumowanie">
+
+    </div>
+
+    </div><br><br> 
+    <p>Licznik czasu: <span id="counter"></span></p>
+<h4>Na wykonanie zadania <span id="numer"></span> masz <span id="setCouter"></span> sekund</h4>
+
+    <script>
+        var quizIndex = 0
+        var counter = 0;
+        var setCounter = 15;
+        
+        
+        var questions = [{
+            'question': 'Gdzie leży Hogwart?',
+            'answer': ['W Szkocji','W Angli', 'W Japoni', 'We Włoszech'], 
+            'rightAnswer': 'W Szkocji'
+        }, {
+            'question': [ 'Do jakiego domu zostal przydzielony Harry Potter?'],
+            'answer': ['Do Gryffindoru','Do Slitterinu'], 
+            'rightAnswer': 'Do Gryffindoru'
+        }, {
+            'question': [ 'Jakiej rasy była Ashoka Tano?'],
+            'answer': ['Człowiek','Tkwilek','Togrutanin','Hutt'], 
+            'rightAnswer': 'Togrutanin'
+        }
+    ]
+ 
+
+
+document.getElementById('RAB').innerHTML = questions[quizIndex].question
+var rightAnswer = questions[quizIndex].rightAnswer; 
+var userChoice = "";
+
+function loadingAnswers() {
+    if (quizIndex > questions.length - 1 ) {
+        document.getElementById('RAB').innerHTML = "KONIEC"
+        document.getElementById('SOB').innerHTML = "" 
+    } else { 
+    var doc = questions[quizIndex].answer;
+    document.getElementById("numer").innerHTML = quizIndex+1;
+for (let i = 0; i < doc.length; i++) {
+    console.log('doc: ',quizIndex)
+    document.getElementById('SOB').innerHTML += `<li><button onclick=points1(this)>${doc[i]}</button></li>`;
+}
+    document.getElementById('RAB').innerHTML = questions[quizIndex].question;
+    document.getElementById("setCouter").innerHTML = setCounter;
+    var interval =  setInterval(() => {
+        if (counter < setCounter) {
+            counter++;
+            document.getElementById("counter").innerHTML = counter;
+        } else {
+        clearInterval(interval);
+            }
+        }, 
+            1000);  
+
+    }
+}
+
+loadingAnswers()
+var points = 0;
+var pods = document.getElementById('Podsumowanie');
+
+
+function points1(str) {
+    counter = 0
+    userChoice = str.textContent;
+    if( userChoice == questions[quizIndex].rightAnswer) {
+        points++;   
+        pods.innerHTML =  `<h2>Dobrze, liczba twoich punktów to:${points}</h2>`
+        quizIndex += 1
+        document.getElementById('RAB').innerHTML = ""
+        document.getElementById('SOB').innerHTML = "" 
+        loadingAnswers()
+
+    } else {
+        pods.innerHTML = "<h2>Źle</h2>"
+        quizIndex += 1
+        document.getElementById('RAB').innerHTML = ""
+        document.getElementById('SOB').innerHTML = ""
+        loadingAnswers() 
+    }
+
+}
+        </script>
+
+</body>
+</html>
